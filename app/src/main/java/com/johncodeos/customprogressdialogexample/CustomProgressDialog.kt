@@ -32,7 +32,10 @@ class CustomProgressDialog {
         view.cp_cardview.setCardBackgroundColor(Color.parseColor("#70000000"))
 
         // Progress Bar Color
-        setColorFilter(view.cp_pbar.indeterminateDrawable, ResourcesCompat.getColor(context.resources, R.color.colorPrimary, null))
+        setColorFilter(
+            view.cp_pbar.indeterminateDrawable,
+            ResourcesCompat.getColor(context.resources, R.color.colorPrimary, null)
+        )
 
         // Text Color
         view.cp_title.setTextColor(Color.WHITE)
