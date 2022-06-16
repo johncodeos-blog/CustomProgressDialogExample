@@ -3,8 +3,8 @@ package com.johncodeos.customprogressdialogexample
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +14,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        start_btn.setOnClickListener {
+        val startButton = findViewById<Button>(R.id.start_btn)
+        startButton.setOnClickListener {
             // Show progress dialog
             progressDialog.show(this, "Please Wait...")
 
