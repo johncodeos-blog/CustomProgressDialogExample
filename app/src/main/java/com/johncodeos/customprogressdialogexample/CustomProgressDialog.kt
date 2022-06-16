@@ -1,6 +1,5 @@
 package com.johncodeos.customprogressdialogexample
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
@@ -16,42 +15,45 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.res.ResourcesCompat
 
 
-class CustomProgressDialog {
+class CustomProgressDialog(context: Context) {
 
-    lateinit var dialog: CustomDialog
+    private var dialog: CustomDialog
+    private var cpTitle: TextView
+    private var cpCardView: CardView
+    private var progressBar: ProgressBar
 
-    fun show(context: Context): Dialog {
-        return show(context, null)
+    fun start(title: String = "") {
+        cpTitle.text = title
+        dialog.show()
     }
 
-    @SuppressLint("InflateParams")
-    fun show(context: Context, title: CharSequence?): Dialog {
+    fun stop() {
+        dialog.dismiss()
+    }
+
+    init {
         val inflater = (context as Activity).layoutInflater
         val view = inflater.inflate(R.layout.progress_dialog_view, null)
 
-        val cpTitle = view.findViewById<TextView>(R.id.cp_title)
-        if (title != null) {
-            cpTitle.text = title
-        }
+        cpTitle = view.findViewById(R.id.cp_title)
+        cpCardView = view.findViewById(R.id.cp_cardview)
+        progressBar = view.findViewById(R.id.cp_pbar)
 
         // Card Color
-        val cpCardView = view.findViewById<CardView>(R.id.cp_cardview)
         cpCardView.setCardBackgroundColor(Color.parseColor("#70000000"))
 
         // Progress Bar Color
-        val cpPBar = view.findViewById<ProgressBar>(R.id.cp_pbar)
         setColorFilter(
-            cpPBar.indeterminateDrawable,
+            progressBar.indeterminateDrawable,
             ResourcesCompat.getColor(context.resources, R.color.colorPrimary, null)
         )
 
         // Text Color
         cpTitle.setTextColor(Color.WHITE)
 
+        // Custom Dialog initialization
         dialog = CustomDialog(context)
         dialog.setContentView(view)
-        dialog.show()
-        return dialog
     }
 
     private fun setColorFilter(drawable: Drawable, color: Int) {
